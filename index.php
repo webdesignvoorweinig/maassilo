@@ -29,7 +29,19 @@
             <div class="check">Piet Baas</div>
             <!-- voorbeeld output met velden-->
             <?php
-                $stock = DB::getInstance()->get('events', )
+                $event = DB::getInstance()->query("SELECT * FROM events ORDER BY ID DESC LIMIT 1");
+                if(!$event->count()){
+                    echo "html met 0 velden aangezien er geen laatste events zijn";
+                } else {
+                $stock = DB::getInstance()->get('stock', 'eventid', '=', $event->results()['ID'])
+                
+                foreach($stock->results() as $inventory) {
+                    $beverage = DB::getInstance()->get('beverage', 'beverage_id', '=', $inventory->beverageid);
+                    $beverage->results();
+                    echo $inventory->precount;
+                    echo $inventory->postcount;
+                }
+                }
             ?>
             <div class="drink-name">Pepsi</div>
             <div class="drink-vol">28x20cl</div>
