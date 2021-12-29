@@ -24,4 +24,4 @@ spl_autoload_register(function($class) {
 });
 
 require_once 'functions/sanitize.php';
-	
+require_once 'functions/output.php';	

@@ -9,11 +9,32 @@
 </head>
 <body>
     <header>
+        <?php 
+            if(isset($_POST)){
+               echo "<pre>"; print_r($_POST); echo"</pre>";
+            
+                $insertevent = DB::getInstance()->insert("events", array(
+                    'eventname' => $_POST['eventname'],
+                    'eventdata' => $_POST['eventdate'],
+                    'barlead' => $_POST['barleader']
+                ));
+            }
+        ?>
+        <nav class="navlist">
+            <ul>
+                <li><a href="index.php">Begintelling</a></li>
+                <li><a href="update.php">Eindtelling</a></li>
+                <li><a href="export.php">Export voorraad</a></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </nav>
+        <form action="<?php $_SERVER["PHP_SELF"];?>" method="post">
         <div class="listgrid">
-            <div class="event-header"><h2>Date: </h2>27-12-2021</div>
-            <div class="event-header grid-col-span-3"><h2>Event: </h2>Gezellige Muziekavond</div>
-            <div class="event-header grid-col-span-2"><h2>Barhoofd: </h2>Jante Nooitgenoeg</div>
-            <div class="event-header grid-col-span-2"><h2>Bar: </h2>Hoofdzaal</div>
+            <div class="event-header"><h2>Date: </h2><input type="date" name="datum"></div>
+            <div class="event-header grid-col-span-2"><h2>Event: </h2><input type="text" name="eventname"></div>
+            <div class="event-header grid-col-span-2"><h2>Barhoofd: </h2><input type="text" name="barleader"></div>
+            <div class="event-header grid-col-span-2"><h2>Bar: </h2><?php=selectbars(); ?></div>
             <div class="event-header">Begin Telling</div>
             <div class="event-header">Eind Telling</div>
             <div class="event-header">Opmerkingen</div>
@@ -29,40 +50,17 @@
             <div class="check">Piet Baas</div>
             <!-- voorbeeld output met velden-->
             <?php
-                $event = DB::getInstance()->query("SELECT * FROM events ORDER BY ID DESC LIMIT 1");
-                if(!$event->count()){
-                    echo "html met 0 velden aangezien er geen laatste events zijn";
-                } else {
-                $stock = DB::getInstance()->get('stock', 'eventid', '=', $event->results()['ID'])
+                echo getbeverages();
                 
-                foreach($stock->results() as $inventory) {
-                    $beverage = DB::getInstance()->get('beverage', 'beverage_id', '=', $inventory->beverageid);
-                    $beverage->results();
-                    echo $inventory->precount;
-                    echo $inventory->postcount;
-                }
-                }
             ?>
-            <div class="drink-name">Pepsi</div>
-            <div class="drink-vol">28x20cl</div>
-            <div class="pre-count">
-                <input type="text" name="precount" value="<?php $row->precount;?>">
-            </div>
-            <div class="post-count">
-                <input type="text" name="postcount" value="<?php $row->postcount;?>">
-            </div>
-            <div class="remarks">
-                <textarea name="remarks" cols="30" rows="3" value="<?php $row->remarks;?>"></textarea>
-            </div>
-            <div class="check">
-                <input type="text" name="control" value="<?php $row->control;?>"> 
-            </div>
+       
             <!-- einde data output tabel -->
        </div>         
        <div class="save-data">
            <input type="submit" value="Opslaan">
            <!-- on submit data wegschrijven naar database-->
        </div>
+    </form>
     </header>
 </body>
 </html>

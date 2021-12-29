@@ -2,7 +2,7 @@
 require_once 'core/init.php';
 $user = DB::getInstance()->get('users', array('username', '=',  'marc'));
 $userexist = DB::getInstance()->get('users', array('username', '=',  'marc'));
-// extra comment
+
 // checken of gebruiker bestaat bij inloggen
 if(!$user->count()) {
 	echo 'foutieve gebruikersnaam ingegeven';
