@@ -1,24 +1,35 @@
 <?php
 
 function getbeverages(){
-    /*$beverages = DB::getInstance()->query("SELECT * FROM beverages");*/
-    // array uiteindelijk vervangen door database query
-    $beverages = array(array("beverageid" => "1", "beverage_name" => "pepsi", "beverage_vol" => "28x20cl"),
-                 array("beverageid" => "2", "beverage_name" => "appelsap", "beverage_vol" => "10x33cl"));
-  // print_r($beverages);
-   foreach($beverages as $beverage) {
+    $beverages = DB::getInstance()->get("dranken");
+    $bev="";
+	foreach($beverages->results() as $beverage) {
     
-   
-
-echo <<<html
-<div class="beverage">{$beverage['beverage_name']}</div>
-<div class="beverage">{$beverage['beverage_vol']}</div>
-<div class="pre-count"><input type="text" name="drank[{$beverage['beverageid']}][precount]"></div>
-<div class="post-count"><input type="text" name="drank[{$beverage['beverageid']}][postcount]"></div>
-<div class="remarks"><textarea cols="30" rows="3" name="drank[{$beverage['beverageid']}][remarks]"></textarea></div>
-<div class="check"><input type="text" name="drank[{$beverage['beverageid']}][check]"></div>
-html;
+$bev .= '
+<div class="row mb-2">
+<div class="col-2">'.$beverage->drank_naam.'</div>
+<div class="col-2 ps-4">'. $beverage->drank_vol.'</div>
+<div class="col-1 ps-4 me-5"><input type="text" name="drank['.$beverage->drankid.'][precount]"  class="form-control" style="width:4rem;"></div>
+<div class="col-lg-2 col-md-3 ps-5 me-5"><textarea cols="30" rows="2" name="drank['.$beverage->drankid.'][remarks]"  class="form-control"></textarea></div>
+<div class="col-lg-2 col-md-3 ps-5"><input type="text" name="drank['.$beverage->drankid.'][check]" class="form-control"></div>
+</div>
+';
  
+	}
+	return $bev;
 }
+
+function getbars(){
+	$bars = DB::getInstance()->get('bar');
+	$some = '<select name="bar" id="bars" class="form-select">
+				<option value=""></option>';
+
+	foreach($bars->results() as $bar){
+    $some .= '
+  	<option value="'.$bar->barid.'">'.$bar->bar_nr.'</option>';
+    
+    }
+	$some .='</select>';
+	return $some;
 }
 ?>

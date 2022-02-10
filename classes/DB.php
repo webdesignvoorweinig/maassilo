@@ -5,8 +5,8 @@ class DB {
 	$_query, 
 	$_error = false, 
 	$_results, 
-	$_count = 0;
-	
+	$_count = 0,
+	$_lastid;
 	private function __construct() {
 		try {
 			$this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname='. Config::get('mysql/db'), Config::get('mysql/username'), Config::get('mysql/password'));
@@ -33,14 +33,40 @@ class DB {
 				} 
 			}
 			if($this->_query->execute()) {
+            
 				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
 				$this->_count = $this->_query->rowCount();
-			} else {
+			} 
+            else {
 				$this->_error = true;
 			}
 		}
 		return $this;	
 	}
+	
+	public function query_assoc($sql, $params=array()) {
+		$this->_error = false;
+		if($this->_query = $this->_pdo->prepare($sql)) {
+			if(count($params)) {
+				$x = 1;
+				foreach($params as $param) {
+					$this->_query->bindValue($x, $param);
+					$x++;
+				} 
+			}
+			if($this->_query->execute()) {
+            
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_ASSOC);
+				$this->_count = $this->_query->rowCount();
+			} 
+            else {
+				$this->_error = true;
+			}
+		}
+		return $this;	
+	}
+
+
 
 	public function action($action, $table, $where = array()) {
 		if(count($where) === 3) {
@@ -67,7 +93,7 @@ class DB {
 		/* return false;	*/
 	}
 	
-	public function get($table, $where) {
+	public function get($table, $where = array()) {
 		return $this->action('SELECT *', $table, $where);
 	}
 	
@@ -91,7 +117,8 @@ class DB {
 			}
 			
 			$sql = "INSERT INTO {$table} (`" . implode('`, `', $keys) . "`) VALUES ({$values})";
-			if(!$this->query($sql, $fields)->error()) {
+			
+    		if(!$this->query($sql, $fields)->error()) {
 				return true;
 			}
 			
@@ -99,18 +126,22 @@ class DB {
 	}
 
 	public function results() {
-		return $this->_result;
+		return $this->_results;
 	}
 	
 	public function first() {
 		return $this->results()[0];
 	}
 	
+	public function lastid() {
+    	return $this->_lastid;
+    }
+
 	public function error() {
 		return $this->_error;
 	}
 	
-	public function count() {
+	public function rows() {
 		return $this->_count;
 	}
 
