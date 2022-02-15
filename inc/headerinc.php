@@ -9,6 +9,7 @@ require_once 'core/init.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maassilo Voorraadlijsten</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="style.css">	
 </head>
 <body>
@@ -16,7 +17,7 @@ require_once 'core/init.php';
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Maassilo</a>
+          <a class="navbar-brand" href="#"><img src="https://www.maassilo.com/templates/maassilo/images/logo/maassilo-logo-white.svg" alt="Logo Maassilo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

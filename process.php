@@ -24,7 +24,7 @@
     	extract($_POST);
 		if(!empty($bar)):
     		$prest = new Stock($_POST['event']);
-    		echo $prest->save_prestock($bar, $barleader, $drank);
+    		echo $prest->save_prestock($bar, $drank);
 		else:
 		 	echo "Je bent vergeten het bar nr in te geven!";
 		endif;

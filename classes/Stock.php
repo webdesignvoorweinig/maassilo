@@ -18,49 +18,50 @@ class Stock extends DB{
     	
         $output = '
         <form id="prestock" class="container-fluid mt-5">
-        	<div class="row mb-3">
-            	<div class="col-3"><h4>Evenement : '.$prestock->results()[0]->event_name. '</h4></div>
-                <div class="col-2"><h4>Datum : '.$prestock->results()[0]->event_date.'</h4></div>            
-                <div class="col-2 d-flex">
-                
-                	<div class="me-3">
-                	<h4>Selecteer Bar:</h4> 
-                    </div>
-                    <div>
-                    '.getbars().'
-                    </div>
-                
-                </div>
-                <div class="col-3 d-flex">
-                	<div class="me-3">
-                		<h4>Barhoofd : </h4>
-                	</div>
-                	<div class="col-6">
-                		<input type="text" name="barleader" class="form-control">
-                   		<input type="hidden" name="event" value="'.$this->eventid.'">
-                 	</div>
-                 </div>
-            </div>
-      		<div class="row mb-3" style="border-bottom:2px solid navy;">
-            	<div class="col-2"><h5>Drank</h5></div>
-            	<div class="col-2"><h5>Volume</h5></div>
-            	<div class="col-1 me-5"><h5>Begintelling</h5></div>
-            	<div class="col-lg-2 col-md-3 ps-5 me-5"><h5>Opmerkingen</h5></div>
-            	<div class="col-lg-2 col-md-3 ps-5"><h5>Controle</h5></div>
-      		</div>'
-    			.getbeverages().'	
-        	<div class="row">
-            	<div class="col">	
-            		<input type="submit" class="btn btn-success" name="precount" value="voortelling opslaan">
-        		</div>
-            </div>
-        </form>'; 
+		<section class="container info">
+		<div class="event__name">
+		  <h4>Evenement: </h4>
+		  <h5>'.$prestock->results()[0]->event_name. '</h5>
+		</div>
+		<div class="event__date">
+		  <h4>Datum:</h4>
+		  <h5>' .$prestock->results()[0]->event_date. '</h5>
+		</div>
+		<div class="event__bar">
+		  <h4>Selecteer Bar:</h4>
+		  ' .getbars().'
+		  <input type="hidden" name="event" value="' .$this->eventid.'">
+		</div>
+	  </section>
+	  
+	  <section class="container tellijst">
+		<div class="tellijst__headers">
+		  <h4>Drank</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Volume</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Begintelling</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Opmerkingen</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Controle</h4>
+		</div>
+	  </section>
+	  '.getbeverages().'
+	  <div class="container voortelling">
+		<input type="submit" class="btn btn-msilo" name="precount" value="voortelling opslaan">
+	  </div>
+	  </form>'; 
     	return $output;
     }
 
 	
 
-	public function save_prestock($bar, $barleader, $drank=array()){
+	public function save_prestock($bar, $drank=array()){
     	
     	// pre check uitvoeren of er al een bar bestaat op dit evenement
     	$precheck = DB::getInstance()->query("SELECT eventid, barid FROM voorraad WHERE barid = $bar AND eventid = $this->eventid");
@@ -70,7 +71,6 @@ class Stock extends DB{
             	$insertprestock = DB::getInstance()->insert('voorraad', array(
             	"eventid" => $this->eventid,
             	"barid" => $bar,
-            	"barleader" => $barleader,
             	"drankid" => $drankid,
             	"begin" => $drankitems['precount'],
             	"opmerking" => $drankitems['remarks'],
@@ -90,13 +90,13 @@ class Stock extends DB{
 	}
 
 	public function poststock($barid) {
-    	$sql = "SELECT e.eventid, e.event_name, e.event_date, f.eventid, f.voorraadid, f.barleader, f.barid, f.opmerking, f.control, f.drankid, d.drankid, d.drank_naam, d.drank_vol, f.begin, f.eind
+    	$sql = "SELECT e.eventid, e.event_name, e.event_date, f.eventid, f.voorraadid, f.barid, f.opmerking, f.control, f.drankid, d.drankid, d.drank_naam, d.drank_vol, f.begin, f.eind
 				FROM voorraad f
                 JOIN dranken d ON f.drankid = d.drankid
                 JOIN events e ON e.eventid = f.eventid
                 WHERE f.eventid = {$this->eventid} AND f.barid = {$barid}";
         $poststock = DB::getInstance()->query($sql);
-    	
+    	if($poststock->rows() != 0) {
     	$output = '<form id="pcount" class="container-fluid mb-5">
         	<div class="row mb-3">
             	<div class="col-3"><h4>Evenement : '.$poststock->results()[0]->event_name. '</h4></div>
@@ -116,9 +116,7 @@ class Stock extends DB{
                 	<div class="me-3">
                 		<h4>Barhoofd : </h4>
                 	</div>
-                	<div class="col-6"><h4>
-                		'.$poststock->results()[0]->barleader.'
-                 	</h4></div>
+                	<div class="col-6"></div>
                  </div>
             </div>
       		<div class="row mb-3" style="border-bottom:2px solid navy;">
@@ -146,6 +144,9 @@ class Stock extends DB{
     	$output .= '
 		<input type="submit" class="sbmt btn btn-success" name="updatevent" value="Eindtelling Opslaan">
 		</form>';
+	} else {
+		$output = "Voor deze bar staan er geen tellingen in het systeem";
+	}
     	return $output;
     	  
     }

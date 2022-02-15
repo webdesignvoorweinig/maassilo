@@ -2,7 +2,7 @@
    		var postcount;
     	$(document).on("click", ".sbmt", function(){
         	postcount = $(this).attr("name");
-        	alert(postcount);
+        	// alert(postcount);
         });
     		
     
@@ -20,11 +20,13 @@
         		});
             	
         		request.done(function (response, textStatus, jqXHR){
-         		// show succes message
-         		$("#result").html('event succesvol aangemaakt');
+         		
+					alert("Event succesvol aangemaakt");
+					// show succes message
+         			//$("#result").html('event succesvol aangemaakt');
                 
-            	$("#selectevent").load(location.href+" #selectevent>*","");
-                $("#createevent").load(location.href+" #createevent>*","");
+            	$("#gevents").load(location.href+" #gevents>*","");
+                $("#cevent").load(location.href+" #cevent>*","");
                 
                 });
         		

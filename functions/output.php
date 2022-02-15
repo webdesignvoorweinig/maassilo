@@ -6,14 +6,23 @@ function getbeverages(){
 	foreach($beverages->results() as $beverage) {
     
 $bev .= '
-<div class="row mb-2">
-<div class="col-2">'.$beverage->drank_naam.'</div>
-<div class="col-2 ps-4">'. $beverage->drank_vol.'</div>
-<div class="col-1 ps-4 me-5"><input type="text" name="drank['.$beverage->drankid.'][precount]"  class="form-control" style="width:4rem;"></div>
-<div class="col-lg-2 col-md-3 ps-5 me-5"><textarea cols="30" rows="2" name="drank['.$beverage->drankid.'][remarks]"  class="form-control"></textarea></div>
-<div class="col-lg-2 col-md-3 ps-5"><input type="text" name="drank['.$beverage->drankid.'][check]" class="form-control"></div>
-</div>
-';
+<section class="container voorraad">
+  <div class="drank__naam">
+    '.$beverage->drank_naam.'
+  </div>
+  <div class="drank__vol">
+    ' .$beverage->drank_vol.'
+  </div>
+  <div class="begintelling">
+    <input type="text" name="drank['.$beverage->drankid.'][precount]" class="form-control" style="width:4rem;">
+  </div>
+  <div class="opmerking">
+    <textarea cols="30" rows="2" name="drank['.$beverage->drankid.'][remarks]" class="form-control"></textarea>
+  </div>
+  <div class="controle">
+    <input type="text" name="drank['.$beverage->drankid.'][check]" class="form-control">
+  </div>
+</section>';
  
 	}
 	return $bev;

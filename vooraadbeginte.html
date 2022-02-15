@@ -1,0 +1,38 @@
+<section class="container info">
+  <div class="event__name">
+    <h4>Evenement: </h4>
+    <h5>'.$prestock->results()[0]->event_name. '</h5>
+  </div>
+  <div class="event__date">
+    <h4>Datum:</h4>
+    <h5>' .$prestock->results()[0]->event_date. '</h5>
+  </div>
+  <div class="event__bar">
+    <h4>Selecteer Bar:</h4>
+    ' .getbars().'
+    <input type="hidden" name="event" value="' .$this->eventid.'">
+  </div>
+</section>
+
+<section class="container tellijst">
+  <div class="tellijst__headers">
+    <h4>Drank</h4>
+  </div>
+  <div class="tellijst__headers">
+    <h4>Volume</h4>
+  </div>
+  <div class="tellijst__headers">
+    <h4>Begintelling</h4>
+  </div>
+  <div class="tellijst__headers">
+    <h4>Opmerkingen</h4>
+  </div>
+  <div class="tellijst__headers">
+    <h4>Controle</h4>
+  </div>
+</section>
+'.getbeverages().'
+<div>
+  <input type="submit" class="btn btn-success" name="precount" value="voortelling opslaan">
+</div>
+</form>
