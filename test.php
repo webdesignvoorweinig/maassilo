@@ -1,7 +1,7 @@
 <?php
     require_once 'core/init.php';
 
- 	$actualstock = DB::getinstance()->query_assoc("select f.event_name, f.event_date, fm.eventid, fm.barleader, fm.barid, fm.drankid, d.drankid, d.drank_naam, d.drank_vol, fm.begin, fm.eind
+ 	$actualstock = DB::getinstance()->query_assoc("select f.event_name, f.event_date, fm.eventid, fm.barid, fm.drankid, d.drankid, d.drank_naam, d.drank_vol, fm.begin, fm.eind
 FROM events f
 JOIN voorraad fm ON f.eventid = fm.eventid 
 JOIN dranken d ON fm.drankid = d.drankid
