@@ -88,7 +88,7 @@ img {
   
 }
 
-.tellijst {
+.tellijst, .natellijst {
   background:#b9cbf0 !important;
 
 }
@@ -96,6 +96,16 @@ img {
 .tellijst, .voorraad {
   display:grid;
   grid-template-columns:repeat(5,minmax(15%, 1fr));
+  column-gap:25px;
+  row-gap:0;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding:1em 0.8em;
+}
+
+.natellijst, .navoorraad {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(15%, 1fr));
   column-gap:25px;
   row-gap:0;
   background: #eee;

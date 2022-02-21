@@ -1,0 +1,56 @@
+  <form id="pcount" class="container-fluid mt-5">
+		<section class="container info">
+		<div class="event__name">
+		  <h4>Evenement: </h4>
+		  <h5>'.$poststock->results()[0]->event_name. '</h5>
+		</div>
+		<div class="event__date">
+		  <h4>Datum:</h4>
+		  <h5>' .$poststock->results()[0]->event_date. '</h5>
+		</div>
+		<div class="event__bar">
+		  <h4>Bar:</h4>
+		  ' .$poststock->results()[0]->barid.'
+		</div>
+	  </section>
+	  
+	  <section class="container tellijst">
+		<div class="tellijst__headers">
+		  <h4>Drank</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Volume</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Begintelling</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Opmerkingen</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Controle</h4>
+		</div>
+	  </section>
+      <!-- gedeelte voor in foreach statement -->
+      <section class="container voorraad">
+        <div class="drank__naam">
+            '.$pstock->drank_naam.'
+          </div>
+          <div class="drank__vol">
+            ' .$pstock->drank_vol.'
+          </div>
+          <div class="begintelling">
+            <input type="text" name="drank['.$pstock->drankid.'][precount]" class="form-control" style="width:4rem;">
+          </div>
+          <div class="opmerking">
+            <textarea cols="30" rows="2" name="drank['.$pstock->drankid.'][remarks]" class="form-control"></textarea>
+          </div>
+          <div class="controle">
+            <input type="text" name="drank['.$pstock->drankid.'][check]" class="form-control">
+          </div>
+      </section>
+	 
+	  <div class="container voortelling">
+		<input type="submit" class="btn btn-msilo" name="updatevent" value="Eindtelling opslaan">
+	  </div>
+	  </form>'; 

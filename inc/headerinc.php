@@ -24,7 +24,7 @@ require_once 'core/init.php';
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.php">Begin Tellijst</a>
+                <a class="nav-link" aria-current="page" href="index.php">Begin Tellijst</a>
               </li>
             <li class="nav-item">
             <a class="nav-link" href="postcount.php">Eind Tellijst</a>

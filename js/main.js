@@ -112,7 +112,8 @@
 				});
 
 				updatestock.done(function (response, textStatus, jqXHR){
-					$("#tmp").html("De eindtelling is succesvol opgeslagen");
+					alert("De eindtelling is succesvol opgeslagen");
+					//$("#tmp").html("De eindtelling is succesvol opgeslagen");
 					$("#pcount").hide();
 				
 				});

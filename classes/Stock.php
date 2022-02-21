@@ -97,52 +97,71 @@ class Stock extends DB{
                 WHERE f.eventid = {$this->eventid} AND f.barid = {$barid}";
         $poststock = DB::getInstance()->query($sql);
     	if($poststock->rows() != 0) {
-    	$output = '<form id="pcount" class="container-fluid mb-5">
-        	<div class="row mb-3">
-            	<div class="col-3"><h4>Evenement : '.$poststock->results()[0]->event_name. '</h4></div>
-                <div class="col-2"><h4>Datum : '.$poststock->results()[0]->event_date.'</h4></div>            
-                <div class="col-2 d-flex">
-                
-                	<div class="me-3">
-                	<h4>Bar:</h4> 
-                    </div>
-                    <div><h4>
-                    '.$poststock->results()[0]->barid.'
-                    </h4>
-                    </div>
-                
-                </div>
-                <div class="col-3 d-flex">
-                	<div class="me-3">
-                		<h4>Barhoofd : </h4>
-                	</div>
-                	<div class="col-6"></div>
-                 </div>
-            </div>
-      		<div class="row mb-3" style="border-bottom:2px solid navy;">
-            	<div class="col-2"><h5>Drank</h5></div>
-            	<div class="col-2"><h5>Volume</h5></div>
-            	<div class="col-1 me-5"><h5>Begintelling</h5></div>
-                <div class="col-2"><h5>Eindtelling</h5></div>
-            	<div class="col-lg-2 col-md-3 ps-5 me-5"><h5>Opmerkingen</h5></div>
-            	<div class="col-lg-2 col-md-3 ps-5"><h5>Controle</h5></div>
-      		</div></div>';
+        // hier de html van uit het tekstbestand in root plaatsen om te kijken of alles hetzelfde staat als op de voortelling.
+    	$output = '<form id="pcount" class="container-fluid mt-5">
+		<section class="container info">
+		<div class="event__name">
+		  <h4>Evenement: </h4>
+		  <h5>'.$poststock->results()[0]->event_name. '</h5>
+		</div>
+		<div class="event__date">
+		  <h4>Datum:</h4>
+		  <h5>' .$poststock->results()[0]->event_date. '</h5>
+		</div>
+		<div class="event__bar">
+		  <h4>Bar:</h4>
+		  ' .$poststock->results()[0]->barid.'
+		</div>
+	  </section>
+	  
+	  <section class="container natellijst">
+		<div class="tellijst__headers">
+		  <h4>Drank</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Volume</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Begintelling</h4>
+		</div>
+		<div class="tellijst_headers">
+			<h4>Eindtelling</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Opmerkingen</h4>
+		</div>
+		<div class="tellijst__headers">
+		  <h4>Controle</h4>
+		</div>
+	  </section>
+	  <section class="container navoorraad">';
     
     	foreach($poststock->results() as $pstock) {
         	$vid = $pstock->voorraadid;
-			$output .= '
-            	<div class="row">
-            	<div class="col-2">'.$pstock->drank_naam.'</div>
-                <div class="col-2">'.$pstock->drank_vol.'</div>
-                <div class="col-1 me-5">'.$pstock->begin.'</div>
-                <div class="col-2"><input type="text" name="voorraad['.$vid.'][eind]"></div>
-                <div class="col-lg-2 col-md-2 ps-5 me-5"><textarea name="voorraad['.$vid.'][remark]">'.$pstock->opmerking.'</textarea></div>
-                <div class="col-lg-2 col-md-3 ps-5">'.$pstock->control.'</div>
-            	</div>
-            ';
+			$output .= '<div class="drank__naam">
+            '.$pstock->drank_naam.'
+          </div>
+          <div class="drank__vol">
+            ' .$pstock->drank_vol.'
+          </div>
+          <div class="begintelling">
+            '.$pstock->begin.'
+          </div>
+		  <div class="eindtelling">
+		  	<input type="text" name="voorraad['.$vid.'][eind]" class="form-control" style="width:4rem;">
+		  </div>
+          <div class="opmerking">
+		  	<textarea name="voorraad['.$vid.'][remark]" class="form-control">'.$pstock->opmerking.'</textarea>
+          </div>
+          <div class="controle">
+            '.$pstock->control.'
+          </div>';
+            	
         }
-    	$output .= '
-		<input type="submit" class="sbmt btn btn-success" name="updatevent" value="Eindtelling Opslaan">
+    	$output .= '</section>
+		<div class="container voortelling">
+			<input type="submit" class="sbmt btn btn-msilo" name="updatevent" value="Eindtelling Opslaan">
+		</div>
 		</form>';
 	} else {
 		$output = "Voor deze bar staan er geen tellingen in het systeem";
