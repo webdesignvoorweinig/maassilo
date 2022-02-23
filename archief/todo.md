@@ -42,3 +42,7 @@ voor het draaien van de lijst en controle op basis van een datum_id.
     - DB class gebruiken die je eerder hebt geschreven en aanpassne op dit project.
     - moet er een username / password gedeelte in om vast te leggen wie de voorraad heeft gedaan?
 
+## finale afronding
+    - csv stuk afmaken.
+    - excel lijst met dranken importeren in database, niet vergeten!
+

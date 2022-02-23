@@ -77,8 +77,12 @@
             });
         
         	$(document).on("submit", "#prestock", function(event){
-            	var postrequest;
             	event.preventDefault();
+				if(!$("#bars").val()){
+					alert("Je vergeet een bar te selecteren");
+				} else {
+				var postrequest;
+            	
             	var pvalues = $(this).serialize();
             	
             	postrequest = $.ajax({
@@ -89,14 +93,14 @@
                 });
             
             	postrequest.done(function (response, textStatus, jqXHR){
-                	$("#tmp").html("Begintelling succesvol opgeslagen");
+                	$("#tmp").html(response);
                 	$("#prestock").hide();
                 });
             
             	postrequest.fail(function(){
                 	$("#tmp").html("there is something wrong");	
                 });
-            
+            	};
             });
         
 			$(document).on("submit", "#pcount", function(event){
@@ -112,14 +116,60 @@
 				});
 
 				updatestock.done(function (response, textStatus, jqXHR){
-					alert("De eindtelling is succesvol opgeslagen");
-					//$("#tmp").html("De eindtelling is succesvol opgeslagen");
-					$("#pcount").hide();
+					//alert("De eindtelling is succesvol opgeslagen");
+					alert(response);
+					//$("#pcount").hide();
 				
 				});
 
 				updatestock.fail(function(){
 					$("#tmp").html("Er is iets niet goed");
+				});
+
+			});
+
+			$(document).on("submit", "#geventsdata", function(event){
+				var getcsv;
+				var csvdata = $(this).serialize();
+				event.preventDefault();
+
+				getcsv = $.ajax({
+					url: "process.php?a=getcsv",
+					type: "post",
+					data: csvdata,
+					cache: false
+				});
+
+				getcsv.done(function(response, textStatus, jqXHR){
+					$("#datacheck").html(response);
+					
+				});
+
+				getcsv.fail(function(){
+					$("#datacheck").html("Wij hebben voor dit evenement nog geen voorraadlijsten klaar staan");
+				});
+
+			});
+
+			$(document).on("submit", "#sendcsv", function(event){
+				var csvdat;
+				event.preventDefault();
+				var csvid = $(this).serialize();
+
+				csvdat = $.ajax({
+					url: "process.php?a=sendcsv",
+					type: "post",
+					data: csvid,
+					cache: false
+				});
+
+				csvdat.done(function(response, textStatus, jqXHR){
+					
+					alert(response);
+				});
+
+				csvdat.fail(function(){
+					$("#tempdata").html("query mislukt");
 				});
 
 			});

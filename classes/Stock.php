@@ -68,6 +68,9 @@ class Stock extends DB{
     	// als de bar nog niet bestaat dan mag je de begintelling toevoegen.
     	if($precheck->rows() == 0) { 
         	foreach($drank as $drankid => $drankitems){
+				if(empty($drankitems['precount'])):
+					$drankitems['precount'] = 0;
+				endif;
             	$insertprestock = DB::getInstance()->insert('voorraad', array(
             	"eventid" => $this->eventid,
             	"barid" => $bar,
@@ -76,8 +79,9 @@ class Stock extends DB{
             	"opmerking" => $drankitems['remarks'],
             	"control" => $drankitems['check']
             ));	
-        
+				
         	}
+			
 			$msg = "Begintelling voorraad succesvol opgeslagen";
         
         } 
@@ -97,7 +101,7 @@ class Stock extends DB{
                 WHERE f.eventid = {$this->eventid} AND f.barid = {$barid}";
         $poststock = DB::getInstance()->query($sql);
     	if($poststock->rows() != 0) {
-        // hier de html van uit het tekstbestand in root plaatsen om te kijken of alles hetzelfde staat als op de voortelling.
+        
     	$output = '<form id="pcount" class="container-fluid mt-5">
 		<section class="container info">
 		<div class="event__name">
@@ -160,6 +164,7 @@ class Stock extends DB{
         }
     	$output .= '</section>
 		<div class="container voortelling">
+			<input type="hidden" name="eventid" value="'.$this->eventid.'">
 			<input type="submit" class="sbmt btn btn-msilo" name="updatevent" value="Eindtelling Opslaan">
 		</div>
 		</form>';

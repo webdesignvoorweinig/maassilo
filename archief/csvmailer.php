@@ -2,8 +2,7 @@
 
 require_once 'core/init.php';
 
-// bij formulier post de eventnaam meegeven aan de functie send_csv_mail zodat de bestandsnaam daarop gemaakt kan worden.
-// tevens de functies verplaatsen naar het functions bestand.
+// knop vanuit eindtelling stuurt id van event mee. op basis daarvan de csv maken.
 
 $actualstock = DB::getinstance()->query_assoc("select f.event_name, f.event_date, fm.eventid, fm.barid, fm.drankid, d.drankid, d.drank_naam, d.drank_vol, fm.begin, fm.eind
 FROM events f

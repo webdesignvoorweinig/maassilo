@@ -10,7 +10,7 @@ require_once 'core/init.php';
   <title>Maassilo Voorraadlijsten</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="style.css">	
+  <!-- <link rel="stylesheet" href="style.css">	 -->
 </head>
 <body>
   <div class="wrapper">
@@ -30,7 +30,7 @@ require_once 'core/init.php';
             <a class="nav-link" href="postcount.php">Eind Tellijst</a>
             </li>
               <li class="nav-item">
-                <a class="nav-link" href="test.php">Export CSV</a>
+                <a class="nav-link" href="deliver.php">Lijsten Versturen</a>
               </li>
               <!--<li class="nav-item">
                 <a class="nav-link" href="#">View Data</a>
