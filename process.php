@@ -13,10 +13,13 @@
     }
 
 	if($_GET['a'] === "gevent"){
-    	
-    	$newstock = new Stock($_POST['event']);
-    	echo $newstock->prestock();
-    
+    	if(!empty($_POST['event'])):
+    		$newstock = new Stock($_POST['event']);
+    		echo $newstock->prestock();
+		else:
+			echo "Je hebt geen evenement geselecteerd of aangemaakt!";
+		endif;
+
     }
 
 	if($_GET['a'] === "prestock") {

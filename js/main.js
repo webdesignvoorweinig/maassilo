@@ -93,7 +93,7 @@
                 });
             
             	postrequest.done(function (response, textStatus, jqXHR){
-                	$("#tmp").html(response);
+                	alert(response);
                 	$("#prestock").hide();
                 });
             
@@ -118,7 +118,7 @@
 				updatestock.done(function (response, textStatus, jqXHR){
 					//alert("De eindtelling is succesvol opgeslagen");
 					alert(response);
-					//$("#pcount").hide();
+					$("#pcount").hide();
 				
 				});
 

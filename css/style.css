@@ -65,6 +65,10 @@ img {
   justify-self:center;
 }
 
+.stock {
+  margin-top:25px;
+}
+
 .info {
   display:grid;
   grid-template-columns:repeat(3,minmax(10%,1fr));
